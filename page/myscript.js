@@ -9,8 +9,15 @@ coin.src=coin_img
 let money=0
 let is_down=false
 let coins=[]
+let audios=[]
+let cs=[]
 
 function init(){
+    for(let i=0;i<30;i++){
+	let aa=new Audio("coin_sound.mp3")
+	audios.push(aa)
+    }
+	
     ws.onopen = () => {
         console.log('open connection')
     }
@@ -57,8 +64,12 @@ function down(){
         nc.scale.y=0.03
         nc.addstyle(coin_img,{x:0,y:0},[])
         coins.push(nc)
-        /*let audio = new Audio("coin_sound.mp3");
-        audio.play();*/
+	for(let i of audios){
+	    if(i.ended){
+		i.play()
+		break;
+	    }
+	}
     }
 }
 
