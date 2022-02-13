@@ -14,8 +14,15 @@ let cs=[]
 
 function init(){
     for(let i=0;i<30;i++){
-	let aa=new Audio("coin_sound.mp3")
-	audios.push(aa)
+        let aa=new Audio("coin_sound.mp3")
+        audios.push(aa)
+    }
+    for(let i=0;i<30;i++){
+        let nc=new imgobj(385,70)
+        nc.scale.x=0.03
+        nc.scale.y=0.03
+        nc.addstyle(coin_img,{x:0,y:0},[])
+        cs.push(nc)
     }
 	
     ws.onopen = () => {
@@ -50,6 +57,8 @@ function update(){
         i.position.y-=2
         i.through-=0.03
         if(i.through<=0){
+            i.through=1
+            i.position.y=70
             coins.splice(coins.indexOf(i),1)
         }
     }
@@ -59,17 +68,19 @@ function down(){
     if(is_down===false){
         is_down=true
         ws.send('')
-        let nc=new imgobj(385,70)
-        nc.scale.x=0.03
-        nc.scale.y=0.03
-        nc.addstyle(coin_img,{x:0,y:0},[])
-        coins.push(nc)
-	for(let i of audios){
-	    if(i.ended){
-		i.play()
-		break;
-	    }
-	}
+        
+        for(let i of audios){
+            if(i.ended||i.currentTime===0){
+                i.play()
+                break;
+            }
+        }
+        for(let i of cs){
+            if(i.through===1){
+                coins.push(i)
+                break
+            }
+        }
     }
 }
 
