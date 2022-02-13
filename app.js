@@ -33,5 +33,47 @@ wss.on('connection', ws => {
     ws.on('close', () => {
     })
 })
+const   MongoClient= require('mongodb').MongoClient
+let uri="mongodb+srv://wei:wiechang0307@cluster0.oxvaa.mongodb.net/sample_analytics?retryWrites=true&w=majority";
+const client = new MongoClient(uri);
+async function find_db(){
+    console.time('connect')
+    try{
+        await client.connect()
+    }catch(e){
+        console.log('failed to connect to cluster0')
+        return 'failed to connect to cluster0'
+    }
+    console.timeEnd('connect')
+    let coll_=client.db("my_test_db").collection("click_money")
+    let result=await coll_.findOne({name:'money'})
+    money=result.money
+    console.log(money)
+}
+find_db()
+
+
+
+
+
+async function update_db(){
+    console.time('connect')
+    try{
+        await client.connect()
+    }catch(e){
+        console.log('failed to connect to cluster0')
+        return 'failed to connect to cluster0'
+    }
+    console.timeEnd('connect')
+    let coll_=client.db("my_test_db").collection("click_money")
+    coll_.updateOne({name:'money'},{$set:{money:money}})
+    return money
+        
+
+        
+        
+    
+}
+setInterval(update_db,30*60*1000)
 
 
