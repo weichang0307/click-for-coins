@@ -26,14 +26,14 @@ function init(){
     mario.scale.x=0.8
     mario.scale.y=0.8
     window.addEventListener('mousedown',down)
-    window.addEventListener('touchstart',down)
+    /*window.addEventListener('touchstart',down)*/
     window.addEventListener('keydown',down)
     window.addEventListener('keyup',(e)=>{
         is_down=false
     })
-    window.addEventListener('touchend',(e)=>{
+    /*window.addEventListener('touchend',(e)=>{
         is_down=false
-    })
+    })*/
     window.addEventListener('mouseup',(e)=>{
         is_down=false
     })
