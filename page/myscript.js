@@ -57,8 +57,8 @@ function down(){
         nc.scale.y=0.03
         nc.addstyle(coin_img,{x:0,y:0},[])
         coins.push(nc)
-        let audio = new Audio("coin_sound.mp3");
-        audio.play();
+        /*let audio = new Audio("coin_sound.mp3");
+        audio.play();*/
     }
 }
 
